@@ -23,3 +23,10 @@ class QuestionManager(Resource):
             db_obj.create_question(data)
             return {'message': 'You have successfully asked a question'}, 201
 
+    # @jwt_required
+    def get(self):
+        db_obj = DBManager(app.config['DATABASE_URL'])
+        reply = db_obj.view_questions()
+        if len( reply ) <= 0:
+            return {'message': 'no entry found'}, 400
+        return reply, 200
