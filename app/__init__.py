@@ -5,7 +5,7 @@ from app.views.user_api import blue_print_users
 from flask_jwt_extended import JWTManager
 
 
-def create_app(config):
+def create_app():
     """The function create app allows:
             The creation of the app and gives it a name
             It also holds the configuration mode that i am working in.
