@@ -135,11 +135,14 @@ class DBManager:
         query = "SELECT qnId, Question FROM questions;"
         self.cur.execute( query )
         rows = self.cur.fetchall()
-        Questions = []
-        for row in rows:
-            row = {'qnId': row[0], 'Question': row[1]}
-            Questions.append(row)
-        return Questions
+        Questions = [Questions for Questions in rows]
+        all_qns = []
+        for value in range(len(Questions)):
+            qn_variable =(
+                {'qn_id': Questions[value][0],
+                 'Question': Questions[value][1]})
+            all_qns.append(qn_variable)
+        return {'Questions': all_qns}
 
         query1 = "SELECT * FROM answers WHERE "
 
@@ -147,11 +150,16 @@ class DBManager:
         query = "SELECT qnId, Question FROM questions;"
         self.cur.execute( query )
         rows = self.cur.fetchall()
-        row_value = []
-        for row in rows:
-            if row[0] == qnId:
-                row_value.append(row)
-        return row_value
+        Questions = [Questions for Questions in rows]
+        single_qns = []
+        for value in range( len( Questions ) ):
+            if Questions[value][0] == qnId:
+                qn_variable = (
+                    {'qn_id': Questions[value][0],
+                     'Question': Questions[value][1]})
+                single_qns.append( qn_variable )
+        return {'Your question is': single_qns}
+
 
 
 
