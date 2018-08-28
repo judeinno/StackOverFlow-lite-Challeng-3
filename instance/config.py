@@ -1,3 +1,4 @@
+import os
 
 class Config(object):
     """The class give my app a default configuration to:
@@ -6,6 +7,9 @@ class Config(object):
     """
     DEBUG = False
     SECRET = 'SECRET'
+    DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/StackOverFlow'
+
+
 
 
 class ProductionConfig(Config):
@@ -31,4 +35,11 @@ class TestingConfig(Config):
         """
     DEBUG = True
     TESTING = True
+    DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/StackOverFlowtest_db'
 
+
+app_config = {
+    'development': DevelopmentConfig,
+    'testing': TestingConfig,
+    'production': ProductionConfig,
+}
