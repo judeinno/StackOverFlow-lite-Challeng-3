@@ -4,7 +4,7 @@ from flask import request
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
-
+from flask import request, current_app as app
 
 class RegisterUsers(Resource):
 
@@ -23,7 +23,7 @@ class RegisterUsers(Resource):
         if not re.match(r"[a-za-z0-9]+@[a-z]+", email):
             return {'message': 'Invalid email, Please check email'}, 400
 
-        db_obj = DBManager()
+        db_obj = DBManager(app.config['DATABASE_URL'])
         if db_obj.user_name_screening(username):
             return {'message': 'User name already exists, please select another username'}, 409
         if db_obj.email_name_screening(email):
@@ -41,7 +41,7 @@ class Login(Resource):
         if not isinstance(username, str ) or not isinstance(password, str ):
             return {'message': 'Please enter right values'}, 400
 
-        db_obj = DBManager()
+        db_obj = DBManager(app.config['DATABASE_URL'])
         user = db_obj.auth_user(username)
         if user is None:
             return {'message': 'User does not exist check username'}, 400
