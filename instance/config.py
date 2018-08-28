@@ -38,8 +38,3 @@ class TestingConfig(Config):
     DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/StackOverFlowtest_db'
 
 
-app_config = {
-    'development': DevelopmentConfig,
-    'testing': TestingConfig,
-    'production': ProductionConfig,
-}
