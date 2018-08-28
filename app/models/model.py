@@ -6,16 +6,15 @@ class Questions(object):
     Converts the app variables to json data
     """
 
-    def __init__(self, qn_id, question):
+    def __init__(self, qnId, Question):
         """
         Class initialisation method
         :param qn_id:
         :param question:
-        :param answer:
         """
-        self.qn_id = qn_id
-        self.question = question
-        self.answer = []
+
+        self.qnId = qnId
+        self.Question = Question
 
     def to_json(self):
         """
@@ -23,9 +22,8 @@ class Questions(object):
         :return: json_data
         """
         json_data = {
-            'qn_id': self.qn_id,
-            'question': self.question,
-            'answer': self.answer
+            'qnId': self.qnId,
+            'Question': self.Question,
         }
         return json_data
 
