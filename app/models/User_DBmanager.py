@@ -1,29 +1,31 @@
 from werkzeug.security import generate_password_hash
-import os
+from urllib.parse import urlparse
 import psycopg2
-from instance.config import TestingConfig
 
 
 class DBManager:
-    def __init__(self):
-        dbname = ""
-        if os.getenv( "APP_SETTING" ) == TestingConfig:
-            dbname = 'StackOverFlowtest_db'
-        else:
-            dbname = 'StackOverFlow-lite'
+    def __init__(self, database_url):
+        """Initializes the connection url"""
+        parsed_url = urlparse( database_url )
+        dbname = parsed_url.path[1:]
+        username = parsed_url.username
+        hostname = parsed_url.hostname
+        password = parsed_url.password
+        port = parsed_url.port
 
         self.conn = psycopg2.connect(
-            dbname= dbname,
-            user= 'postgres',
-            password= 'ROCKcity1234',
-            host= 'localhost',
-            port= '5432')
+            database= dbname,
+            user= username,
+            password= password,
+            host= hostname,
+            port= port)
         self.conn.autocommit = True
         self.cur = self.conn.cursor()
 
     def create_tables(self):
         """Create Tables"""
-        sql_commands = ("""CREATE TABLE IF NOT EXISTS users(
+        sql_commands = (
+               """CREATE TABLE IF NOT EXISTS users(
                 userId SERIAL PRIMARY KEY,
                 email varchar NOT NULL,
                 username varchar NOT NULL,
@@ -41,8 +43,6 @@ class DBManager:
             self.cur.execute(sql_command)
 
 
-
-
     def create_user(self, data):
         """Methods to manage users"""
         self.cur.execute("INSERT INTO users (email, username, password)"
@@ -51,6 +51,12 @@ class DBManager:
                           generate_password_hash(data['password'], method='sha256')))
 
     def create_question(self, data):
+        """Methods to manage Question"""
+        self.cur.execute("INSERT INTO questions (Question)"
+                         "VALUES ('{}');".format
+                         (data['Question']))
+
+    def create_answer(self, data):
         """Methods to manage Question"""
         self.cur.execute("INSERT INTO questions (Question)"
                          "VALUES ('{}');".format
