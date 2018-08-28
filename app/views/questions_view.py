@@ -4,7 +4,6 @@ from flask import request, current_app as app
 from flask_jwt_extended import jwt_required
 
 
-
 class QuestionManager(Resource):
 
 
@@ -30,3 +29,11 @@ class QuestionManager(Resource):
         if len( reply ) <= 0:
             return {'message': 'no entry found'}, 400
         return reply, 200
+
+
+class SingleQuestionManager(Resource):
+
+    def get(self, qnId):
+        db_obj = DBManager(app.config['DATABASE_URL'])
+        reply = db_obj.view_question_single_id(qnId)
+        return reply
