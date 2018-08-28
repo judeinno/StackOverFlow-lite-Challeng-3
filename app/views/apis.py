@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
-from app.views.questions_view import QuestionManager
+from app.views.questions_view import QuestionManager, SingleQuestionManager
+from app.views.answer_view import AnswerManager
 
 # Initialistion of blueprint, giving it a name and a url prefix
 blue_print = Blueprint('Qns_Bp', __name__, url_prefix='/api/v1')
@@ -10,6 +11,6 @@ api = Api(blue_print)
 
 api.add_resource(QuestionManager, '/questions')
 
-# api.add_resource(SingleQuestionManager, '/questions/<int:qn_id>')
+api.add_resource(SingleQuestionManager, '/questions/<int:qnId>')
 #
-# api.add_resource(AnswerManager, '/questions/<int:qn_id>/answers')
+api.add_resource(AnswerManager, '/questions/<int:qn_id>/answers')
