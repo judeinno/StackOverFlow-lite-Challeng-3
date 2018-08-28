@@ -1,4 +1,3 @@
-
 # StackOverFlow-lite
 
 This is a question answer app that allows users to ask questions and as well give replys.
