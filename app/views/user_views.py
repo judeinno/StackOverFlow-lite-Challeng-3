@@ -1,6 +1,6 @@
 from app.models.User_DBmanager import DBManager
 from flask_restful import Resource
-from flask import request
+from app.models.model import User
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
@@ -38,16 +38,20 @@ class Login(Resource):
         username = data['username']
         password = data['password']
 
-        if not isinstance(username, str ) or not isinstance(password, str ):
-            return {'message': 'Please enter right values'}, 400
 
         db_obj = DBManager(app.config['DATABASE_URL'])
         user = db_obj.auth_user(username)
         if user is None:
             return {'message': 'User does not exist check username'}, 400
-
-        if not check_password_hash(user['password'], password):
+        query = db_obj.fetch_by_param(
+            'users', 'username', data['username'] )
+        if not query:
+            return {'message': 'Please either register, enter right values or User does not exist'}, 400
+        the_user = User( query[0], query[1], query[2], query[3] )
+        if  check_password_hash(user['password'], password) and the_user.username == data['username']:
+            access_token = create_access_token( identity=user )
+            return {'access_token': access_token}, 200
+        else:
             return {'message': 'Wrong password'}, 400
 
-        access_token = create_access_token(identity=user)
-        return {'access_token': access_token}, 200
+
