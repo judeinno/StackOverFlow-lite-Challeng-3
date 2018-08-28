@@ -1,6 +1,3 @@
-[![Build Status](https://travis-ci.org/judeinno/StackOverFlow-lite.svg?branch=develop)](https://travis-ci.org/judeinno/StackOverFlow-lite)
-[![Coverage Status](https://coveralls.io/repos/github/judeinno/StackOverFlow-lite/badge.svg?branch=API)](https://coveralls.io/github/judeinno/StackOverFlow-lite?branch=API)
-[![Maintainability](https://api.codeclimate.com/v1/badges/fe0c1562dfa5dd20415c/maintainability)](https://codeclimate.com/github/judeinno/StackOverFlow-lite/maintainability)
 
 # StackOverFlow-lite
 
