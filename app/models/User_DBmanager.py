@@ -194,6 +194,13 @@ class DBManager:
         quest = self.cur.fetchone()
         return quest
 
+    def modify_ans_status(self,qnId,  ansId, data,):
+        self.cur.execute(
+            "UPDATE Answers SET Prefered_Ans_Status=%s WHERE qnId= %sand ansId=%s",
+            (data['Prefered_Ans_Status'],qnId , ansId))
 
-
+    def modify_ans(self,qnId,  ansId, data,):
+        self.cur.execute(
+            "UPDATE Answers SET Answers=%s WHERE qnId=%s and ansId=%s",
+            (data['Answers'], qnId , ansId))
 
