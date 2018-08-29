@@ -1,4 +1,4 @@
-import os
+
 
 class Config(object):
     """The class give my app a default configuration to:
