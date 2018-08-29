@@ -34,15 +34,16 @@ class DBManager:
 
                """CREATE TABLE IF NOT EXISTS questions(
                 qnId SERIAL PRIMARY KEY,
-                userId VARCHAR NOT NULL,
+                userId INTEGER NOT NULL,
                 Question varchar NOT NULL,
-                FOREIGN KEY (qnId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE)""",
+                FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE ON UPDATE CASCADE)""",
                """CREATE TABLE IF NOT EXISTS answers(
                          ansId SERIAL PRIMARY KEY,
-                         userId VARCHAR NOT NULL,
-                         qnId varchar NOT NULL,
+                         qnId INTEGER NOT NULL,
+                         Ans_Auth_Id INTEGER NOT NULL,
                          Answers varchar NOT NULL,
-                         FOREIGN KEY (ansId) REFERENCES questions(qnId) ON DELETE CASCADE ON UPDATE CASCADE)""")
+                         Prefered_Ans_Status boolean DEFAULT FALSE,
+                         FOREIGN KEY (qnId) REFERENCES questions(qnId) ON DELETE CASCADE ON UPDATE CASCADE)""")
         for sql_command in sql_commands:
             self.cur.execute(sql_command)
 
@@ -54,17 +55,17 @@ class DBManager:
                          (data['email'], data['username'],
                           generate_password_hash(data['password'], method='sha256')))
 
-    def create_question(self, data):
+    def create_question(self,userId, data):
         """Methods to manage Question"""
-        self.cur.execute("INSERT INTO questions (Question)"
-                         "VALUES ('{}');".format
-                         (data['Question']))
+        self.cur.execute("INSERT INTO questions (userId, Question)"
+                         "VALUES ('{}', '{}');".format
+                         (userId, data['Question']))
 
-    def create_answer(self, data):
+    def create_answer(self, qnId,Ans_Auth_Id, data):
         """Methods to manage Question"""
-        self.cur.execute("INSERT INTO answers (Answer)"
-                         "VALUES ('{}');".format
-                         (data['Answer']))
+        self.cur.execute("INSERT INTO answers (qnId, Ans_Auth_Id, Answers)"
+                         "VALUES ('{}','{}','{}');".format
+                         (qnId,Ans_Auth_Id, data['Answer']))
 
     def user_name_screening(self, username):
         query = "SELECT * FROM users WHERE username=%s"
@@ -98,6 +99,13 @@ class DBManager:
         row = self.cur.fetchone()
         return row
 
+    def fetch_by_specific_param(self, other_param, table_name, column, param):
+        """Fetches a single a parameter from a specific table and column"""
+        query = "SELECT {} FROM {} WHERE {} = '{}'".format(
+           other_param, table_name, column, param )
+        self.cur.execute( query )
+        row = self.cur.fetchone()
+        return row
 
     def fetch_by_id(self, qnId):
         """ Gets a question by id from the questions table"""
@@ -124,12 +132,12 @@ class DBManager:
         user = self.cur.fetchone()
         if not user:
             return {'message': 'User does not exist'}
-        user_dict = {'username': user[2], "password": user[3]}
+        user_dict = {'userId': user[0],'username': user[2], "password": user[3]}
         return user_dict
 
-    def trancate_table(self, table):
+    def trancate_table(self):
         """Trancates the table"""
-        self.cur.execute("TRUNCATE TABLE users RESTART IDENTITY CASCADE ;")
+        self.cur.execute("TRUNCATE TABLE users RESTART IDENTITY CASCADE;")
 
     def view_questions(self):
         query = "SELECT qnId, Question FROM questions;"
@@ -142,9 +150,7 @@ class DBManager:
                 {'qn_id': Questions[value][0],
                  'Question': Questions[value][1]})
             all_qns.append(qn_variable)
-        return {'Questions': all_qns}
-
-        query1 = "SELECT * FROM answers WHERE "
+        return all_qns
 
     def view_question_single_id(self, qnId):
         query = "SELECT qnId, Question FROM questions;"
@@ -158,7 +164,35 @@ class DBManager:
                     {'qn_id': Questions[value][0],
                      'Question': Questions[value][1]})
                 single_qns.append( qn_variable )
-        return {'Your question is': single_qns}
+
+        query = "SELECT ansId, Answers ,Prefered_Ans_Status FROM answers;"
+        self.cur.execute( query )
+        rows = self.cur.fetchall()
+        Answers = [Answers for Answers in rows]
+        all_ans = []
+        for value in range( len(Answers) ):
+            ans_variable = (
+                [{'Ans_id': Answers[value][0],
+                 'Answer': Answers[value][1],
+                 'Prefered_Ans_Status': Answers[value][2]}])
+            all_ans.append( ans_variable )
+        return {'Your question is': single_qns+all_ans}
+
+    def delete_question(self, qnId):
+        query = "DELETE FROM questions WHERE qnId=%s"
+        self.cur.execute( query, (qnId,) )
+
+    def fetch_question_values(self, qnId, userId):
+        query = "SELECT  * FROM questions WHERE qnId=%s and userId=%s"
+        self.cur.execute( query, (qnId, userId) )
+        quest = self.cur.fetchone()
+        return quest
+
+    def fetch_question_value(self, qnId):
+        query = "SELECT  * FROM questions WHERE qnId=%s "
+        self.cur.execute( query, (qnId,) )
+        quest = self.cur.fetchone()
+        return quest
 
 
 
