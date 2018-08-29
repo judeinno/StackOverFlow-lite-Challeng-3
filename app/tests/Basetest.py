@@ -7,13 +7,13 @@ from flask import current_app as app
 
 class BaseTest (unittest.TestCase):
 
-    def createing_app(self):
+    def creating_app(self):
         app = create_app()
         app.config.from_object(TestingConfig)
         return app
 
     def setUp(self):
-        self.app = self.createing_app()
+        self.app = self.creating_app()
         self.client = self.app.test_client
         self.app.app_context().push()
         db = DBManager(app.config['DATABASE_URL'])
@@ -43,4 +43,4 @@ class BaseTest (unittest.TestCase):
 
     def tearDown(self):
         db = DBManager(app.config['DATABASE_URL'])
-        db.trancate_table("users")
+        db.trancate_table()
