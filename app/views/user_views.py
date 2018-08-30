@@ -41,8 +41,6 @@ class Login(Resource):
 
         db_obj = DBManager(app.config['DATABASE_URL'])
         user = db_obj.auth_user(username)
-        if user is None:
-            return {'message': 'User does not exist check username'}, 400
         query = db_obj.fetch_by_param(
             'users', 'username', data['username'] )
         if not query:
