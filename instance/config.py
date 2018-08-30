@@ -35,6 +35,6 @@ class TestingConfig(Config):
         """
     DEBUG = True
     TESTING = True
-    DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/StackOverFlowtest_db'
+    DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/stackoverflowtestdb'
 
 
