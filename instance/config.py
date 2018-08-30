@@ -1,4 +1,4 @@
-
+import os
 
 class Config(object):
     """The class give my app a default configuration to:
@@ -6,7 +6,7 @@ class Config(object):
         Provide a secret key
     """
     DEBUG = False
-    SECRET = 'SECRET'
+    SECRET = os.getenv('SECRET')
     DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/StackOverFlow'
 
 
