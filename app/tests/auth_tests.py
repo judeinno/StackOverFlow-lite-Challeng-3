@@ -5,8 +5,6 @@ from app.tests.Basetest import BaseTest
 
 class TestClass(BaseTest):
 
-
-
     def test_user_siginup(self):
         """Test API can signup """
 
