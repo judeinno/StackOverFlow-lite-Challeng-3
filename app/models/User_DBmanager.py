@@ -137,7 +137,7 @@ class DBManager:
 
     def trancate_table(self):
         """Trancates the table"""
-        self.cur.execute("TRUNCATE TABLE users RESTART IDENTITY CASCADE;")
+        self.cur.execute("TRUNCATE TABLE users CASCADE;")
 
     def view_questions(self):
         query = "SELECT qnId, Question FROM questions;"
@@ -194,10 +194,10 @@ class DBManager:
         quest = self.cur.fetchone()
         return quest
 
-    def modify_ans_status(self,qnId,  ansId, data,):
+    def modify_ans_status(self,qnId,  ansId):
         self.cur.execute(
-            "UPDATE Answers SET Prefered_Ans_Status=%s WHERE qnId= %sand ansId=%s",
-            (data['Prefered_Ans_Status'],qnId , ansId))
+            "UPDATE Answers SET Prefered_Ans_Status=TRUE WHERE qnId= %sand ansId=%s",
+            (qnId , ansId))
 
     def modify_ans(self,qnId,  ansId, data,):
         self.cur.execute(
