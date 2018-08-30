@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/judeinno/StackOverFlow-lite-Challeng-3.svg?branch=Challenge3)](https://travis-ci.org/judeinno/StackOverFlow-lite-Challeng-3)
+
+
 # StackOverFlow-lite
 
 This is a question answer app that allows users to ask questions and as well give replys.
