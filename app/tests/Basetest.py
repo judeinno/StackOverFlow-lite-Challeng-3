@@ -20,19 +20,13 @@ class BaseTest (unittest.TestCase):
         db.create_tables()
 
         self.user_reg = {
-            "username": "ude",
-            "email": "ude@sample.com",
-            "password": "password"
-        }
-
-        self.user_sec_ren = {
             "username": "jude",
             "email": "jude@sample.com",
             "password": "password"
         }
 
         self.loginlist = {
-            'username': 'ude',
+            'username': 'jude',
             'password': 'password'
         }
 
@@ -43,10 +37,11 @@ class BaseTest (unittest.TestCase):
         return response
 
     def login_user(self):
-        response = self.client().post( '/api/v1/auth/login',
+        login_response = self.client().post( '/api/v1/auth/login',
                                        data=json.dumps( self.loginlist ),
                                        content_type='application/json' )
-        return response
+        login_result = json.loads( login_response.data.decode() )
+        return login_result
 
     def tearDown(self):
         db = DBManager(app.config['DATABASE_URL'])
