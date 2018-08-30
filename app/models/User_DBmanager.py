@@ -165,8 +165,8 @@ class DBManager:
                      'Question': Questions[value][1]})
                 single_qns.append( qn_variable )
 
-        query = "SELECT ansId, Answers ,Prefered_Ans_Status FROM answers;"
-        self.cur.execute( query )
+        query = "SELECT ansId, Answers ,Prefered_Ans_Status FROM answers WHERE qnId = %s;"
+        self.cur.execute( query, (qnId,) )
         rows = self.cur.fetchall()
         Answers = [Answers for Answers in rows]
         all_ans = []
