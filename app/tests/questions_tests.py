@@ -72,6 +72,35 @@ class TestClass(BaseTest):
             self.assertEqual( response.status_code, 400 )
             self.assertIn( 'no entry found', responseJson['message'] )
 
+    def test_single_question_get(self):
+        with self.app.test_client() as client:
+            self.create_user()
+            self.login_user()
+            res = client.post( '/api/v1/questions', headers={'Content-Type': 'application/json',
+                                                              'Authorization': 'Bearer ' + self.login_user()[
+                                                                  'access_token']},
+                                    data=json.dumps( dict( Question="What is html" ) ) )
+            self.assertEqual( res.status_code, 201 )
+            response = client.get( '/api/v1/questions/1', headers={'Content-Type': 'application/json',
+                                                              'Authorization': 'Bearer ' + self.login_user()[
+                                                                  'access_token']})
+            self.assertEqual( response.status_code, 200 )
+
+    def test_delete_question(self):
+        with self.app.test_client() as client:
+            self.create_user()
+            self.login_user()
+            res = client.post( '/api/v1/questions', headers={'Content-Type': 'application/json',
+                                                              'Authorization': 'Bearer ' + self.login_user()[
+                                                                  'access_token']},
+                                    data=json.dumps( dict( Question="What is html" ) ) )
+            self.assertEqual( res.status_code, 201 )
+            response = client.delete( '/api/v1/questions/1', headers={'Content-Type': 'application/json',
+                                                              'Authorization': 'Bearer ' + self.login_user()[
+                                                                  'access_token']})
+            self.assertEqual( response.status_code, 202 )
+
+
 
 if __name__ == '__main__':
     unittest.main()
