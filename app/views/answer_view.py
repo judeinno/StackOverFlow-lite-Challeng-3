@@ -16,12 +16,9 @@ class AnswerManager(Resource):
         db_obj = DBManager( app.config['DATABASE_URL'] )
         if not isinstance(Answer, str ) or Answer.isspace() or Answer == "":
             return {"message": 'Invalid, Please enter a valid question'}, 406
-        if db_obj.fetch_question_values( qnId, current_user ):
-            return {'message': 'Yor can not answer your own question'}
-        else:
-            db_obj.fetch_question_value(qnId)
-            db_obj.create_answer(qnId, current_user, data)
-            return {'message': 'answer successfully created'}
+        db_obj.fetch_question_value(qnId)
+        db_obj.create_answer(qnId, current_user, data)
+        return {'message': 'answer successfully created'}
 
 class UpdateAnswer(Resource):
 
