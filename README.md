@@ -7,7 +7,8 @@ it also allows a users to vote for a question and also comment on it
 > 1. [git](https://git-scm.com/)
 > 2. [python](https://docs.python.org/) 
 > 3. [pip](https://pypi.python.org/pypi/pip) 
-> 4. [virtualenv](https://virtualenv.pypa.io/en/stable/) 
+> 4. [virtualenv](https://virtualenv.pypa.io/en/stable/)
+> 4. [Postgres](https://www.postgresql.org/) 
 
 # Getting Started
 1. Clone the project
@@ -40,9 +41,6 @@ The link to the git hub branch with the code is:
 https://github.com/judeinno/StackOverFlow-lite/tree/API
 
 
-The link to the hosted apis on heroku:
-https://mystacklite-api-heroku.herokuapp.com/api/v1/questions
-
  # Features
 __interface__
 - Users can create an account and log in.
@@ -59,8 +57,37 @@ __API endpoints__
 |`/api/v1/questions`                                  |GET   |Gets a list of Questions              |
 |`/api/v1/questions`                                  |POST  |Post a question                       |
 |`/api/v1/questions/<int:qn_id>`                      |GET   |Gets a Question resource of a given ID|
-|`/api/v1.0/questions/<int:qn_id>/answers`           |POST  |Adds a an answer to a question        |
+|`/api/v1.0/questions/<int:qn_id>/answers`            |POST  |Adds a an answer to a question        |
+|`/api/v1.0/questions/<int:qn_id>        `            |DELETE|Delete  a question                    |
+|`/api/v1.0/questions/<int:qn_id>/answers`            |POST  |Adds a an answer to a question        |
+|`/api/v1.0/questions/<int:qn_id>/answers/<int:ans_id>` |PUT  |Modify an answer to a question        |
 
+# How  the arguments are to be passed in postman
+  * Users register Endpoint takes the following data.  
+  ` {
+	"username":"username",
+	"email":"email",
+	"password":"password"
+	`
+   * Users register Endpoint takes the data as follows.  
+  ` {
+	"username":"username",
+	"password":"password"
+	`
+    `    
+   * Users Question json data Endpoint takes the data follows.  
+   `
+   {
+      "Question": "string"
+    }
+    `
+
+   * Users Answer json data Endpoint takes the data follows.  
+   `
+   {
+      "Answer": "string"
+    }
+    `
 
 # Built With
 __interface__
