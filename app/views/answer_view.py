@@ -44,7 +44,7 @@ class UpdateAnswer(Resource):
                 return {"message": 'Invalid, Please enter a valid answer'}, 406
             else:
                 db_obj.modify_ans( qnId, ansId, data )
-                return {'message': 'Answer edited'}, 201
+                return {'message': 'Answer edited'}, 200
 
         return {"message": 'You not authorised to change the answer '}, 409
 
