@@ -29,6 +29,16 @@ class BaseTest (unittest.TestCase):
             'username': 'jude',
             'password': 'password'
         }
+        self.user_reg_sec = {
+            "username": "irene",
+            "email": "irene@sample.com",
+            "password": "password"
+        }
+
+        self.loginlist_sec = {
+            'username': 'irene',
+            'password': 'password'
+        }
 
     def create_user(self):
         response = self.client().post( '/api/v1/auth/signup',
