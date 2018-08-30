@@ -24,8 +24,15 @@ class BaseTest (unittest.TestCase):
             "email": "ude@sample.com",
             "password": "password"
         }
+
+        self.user_sec_ren = {
+            "username": "jude",
+            "email": "jude@sample.com",
+            "password": "password"
+        }
+
         self.loginlist = {
-            'username': 'jude',
+            'username': 'ude',
             'password': 'password'
         }
 
