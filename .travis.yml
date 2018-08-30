@@ -9,7 +9,7 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'CREATE DATABASE StackOverFlowtest_db;' -U postgres
+  - psql -c 'create database StackOverFlowtest_db;' -U postgres
 
 # command to run tests
 script:
