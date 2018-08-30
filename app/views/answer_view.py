@@ -33,16 +33,13 @@ class UpdateAnswer(Resource):
         my_user_check_by_qn = db_obj.fetch_by_specific_param( 'userId', 'questions', 'userId', current_user )
         my_user_check_ans_auth = db_obj.fetch_by_specific_param( 'Ans_Auth_Id', 'answers', 'Ans_Auth_Id', current_user )
         if my_user_check_by_qn:
-            data = request.get_json()
-            Prefered_Ans_Status = data['Prefered_Ans_Status']
-            if not isinstance( Prefered_Ans_Status, bool ):
-                return {"message": 'Invalid, Please enter a valid status. Either true or false '}, 406
-            else:
-                db_obj.modify_ans_status(qnId, ansId, data)
-                return {'message': 'Answer approved'}
+            db_obj.modify_ans_status(qnId, ansId)
+            return {'message': 'Answer approved'}
         elif my_user_check_ans_auth:
             data = request.get_json()
             Answer = data['Answers']
+            if not data:
+                return {"message": 'Invalid, Your not allowed to change that.'}, 406
             if not isinstance( Answer, str ) or Answer.isspace() or Answer == "":
                 return {"message": 'Invalid, Please enter a valid answer'}, 406
             else:
