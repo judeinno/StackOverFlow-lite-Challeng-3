@@ -26,7 +26,7 @@ class QuestionManager(Resource):
             db_obj.create_question(current_user, data)
             return {'message': 'You have successfully asked a question'}, 201
 
-    # @jwt_required
+
     def get(self):
         db_obj = DBManager(app.config['DATABASE_URL'])
         reply = db_obj.view_questions()
@@ -56,4 +56,3 @@ class DeleteQuestionManager(Resource):
             if db_obj.delete_question( qnId ):
                 return 202
             return {'message': 'Question deleted successfully'}, 202
-        return {'message': 'User does not exist'}, 400
