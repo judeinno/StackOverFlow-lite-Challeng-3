@@ -200,7 +200,7 @@ class DBManager:
 
     def modify_ans_status(self,qnId,  ansId):
         self.cur.execute(
-            "UPDATE Answers SET Prefered_Ans_Status=TRUE WHERE qnId= %sand ansId=%s",
+            "UPDATE Answers SET Prefered_Ans_Status=TRUE WHERE qnId= %s and ansId=%s",
             (qnId , ansId))
 
     def modify_ans(self,qnId,  ansId, data,):
