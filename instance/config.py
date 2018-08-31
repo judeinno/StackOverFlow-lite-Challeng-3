@@ -37,4 +37,11 @@ class TestingConfig(Config):
     TESTING = True
     DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/stackoverflowtestdb'
 
-
+class TestingAnswersConfig(Config):
+    """The class provides configurations during testing hence:
+            Debug is true for more insite into error problems
+            And testing is true to allow testing of the app
+        """
+    DEBUG = True
+    TESTING = True
+    DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/stackoverflowtestanswers'
