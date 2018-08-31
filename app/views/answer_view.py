@@ -15,7 +15,7 @@ class AnswerManager(Resource):
         Answer = data['Answer']
         db_obj = DBManager( app.config['DATABASE_URL'] )
         if not isinstance(Answer, str ) or Answer.isspace() or Answer == "":
-            return {"message": 'Invalid, Please enter a valid question'}, 406
+            return {"message": 'Invalid, Please enter a valid answer'}, 406
         db_obj.fetch_question_value(qnId)
         db_obj.create_answer(qnId, current_user, data)
         return {'message': 'answer successfully created'}
@@ -35,8 +35,6 @@ class UpdateAnswer(Resource):
         elif my_user_check_ans_auth:
             data = request.get_json()
             Answer = data['Answers']
-            if not data:
-                return {"message": 'Invalid, Your not allowed to change that.'}, 406
             if not isinstance( Answer, str ) or Answer.isspace() or Answer == "":
                 return {"message": 'Invalid, Please enter a valid answer'}, 406
             else:
