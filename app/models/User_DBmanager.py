@@ -139,6 +139,10 @@ class DBManager:
         """Trancates the table"""
         self.cur.execute("TRUNCATE TABLE users CASCADE;")
 
+    def drop_table(self):
+        """drop the table"""
+        self.cur.execute("DROP TABLE users CASCADE;")
+
     def view_questions(self):
         query = "SELECT qnId, Question FROM questions;"
         self.cur.execute( query )
