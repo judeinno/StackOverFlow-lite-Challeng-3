@@ -10,6 +10,7 @@ services:
 
 before_script:
   - psql -c 'create database stackoverflowtestdb;' -U postgres
+  - psql -c 'create database stackoverflowtestanswers;' -U postgres
 
 # command to run tests
 script:
