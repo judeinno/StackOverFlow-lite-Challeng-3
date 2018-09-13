@@ -88,7 +88,7 @@ class DBManager:
     def answer_screening(self, Answer):
         query = "SELECT * FROM answers WHERE Answer=%s"
         self.cur.execute(query, (Answer,))
-        Question = self.cur.fetchone()
+        Answer = self.cur.fetchone()
         return Answer
 
     def fetch_by_param(self, table_name, column, param):

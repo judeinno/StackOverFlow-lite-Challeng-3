@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restful import Api
+from flask_restplus import Api
 from app.views.user_views import RegisterUsers, Login
 
 

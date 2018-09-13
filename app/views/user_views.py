@@ -1,5 +1,5 @@
 from app.models.User_DBmanager import DBManager
-from flask_restful import Resource
+from flask_restplus import Resource
 from app.models.model import User
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -9,6 +9,10 @@ from flask import request, current_app as app
 class RegisterUsers(Resource):
 
     def post(self):
+        """Register a user.
+
+        Allows a user to sign up.
+        """
         data = request.get_json()
         email = data['email']
         username = data['username']
@@ -34,6 +38,10 @@ class RegisterUsers(Resource):
 
 class Login(Resource):
     def post(self):
+        """Login a user.
+
+        Allows a user to sign in.
+        """
         data = request.get_json()
         username = data['username']
         password = data['password']

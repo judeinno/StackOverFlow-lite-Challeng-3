@@ -1,5 +1,5 @@
 from app.models.User_DBmanager import DBManager
-from flask_restful import Resource
+from flask_restplus import Resource
 from flask import request, current_app as app
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
@@ -9,6 +9,10 @@ class AnswerManager(Resource):
 
     @jwt_required
     def post(self, qnId):
+        """Post an answer.
+
+        Allows a user to post an answer.
+        """
         userid_current = get_jwt_identity()
         current_user = userid_current['userId']
         data = request.get_json()
@@ -24,6 +28,10 @@ class UpdateAnswer(Resource):
 
     @jwt_required
     def put(self, qnId, ansId):
+        """Modify an answer by id.
+
+        Allows a user to modify an answer by id.
+        """
         userid_current = get_jwt_identity()
         current_user = userid_current['userId']
         db_obj = DBManager( app.config['DATABASE_URL'] )
