@@ -24,28 +24,20 @@
             <div class="login-form">
                 <fieldset>
                      <legend id="sign">Sign Up</legend>
-                    <form  action="signin.html">
-                        <div>
-                            <label>First name :</label>
-                            <input type="text" placeholder="*First name" required><br>
-                        </div>
+                    <form method="post" id="signup" action="signin.html" >
                         <div>
                             <label>Last name :</label>
-                            <input type="text" placeholder="*Last name" required><br>
+                            <input type="text" id="username" placeholder="*username" required><br>
                         </div>
                         <div>
                             <label>Email :  </label>
-                            <input type="email" placeholder="*email address" required><br>
+                            <input type="email" id="email" placeholder="*email address" required><br>
                         </div>
                         <div>
                             <label>Password :</label>
-                            <input type="password" placeholder="*Password" required><br>
+                            <input type="password" id="password" placeholder="*Password" required><br>
                         </div>
-                        <div>
-                            <label>Confirm password :</label>
-                            <input type="password" placeholder="*Confirm password" required><br>
-                        </div>
-                        <input class="submit" type="submit" placeholder="Sign in"><br>
+                        <input class="submit"  type="submit" ><br>
                     </form>
                 </fieldset>
             </div>
@@ -56,5 +48,35 @@
                 <p>2018 StackOverFlow-lite</p>
             </footer>
         </div>
+        <script>
+            /*event listener */
+            document.getElementById("signup").addEventListener("submit", registeruser);
+
+            function registeruser(e) {
+                e.preventDefault();
+                let username = document.getElementById("username").value;
+                let email = document.getElementById("email").value;
+                let password = document.getElementById("password").value;
+                console.log(username, email, password);
+                data = {
+                    'email': email,
+                    'username': username,
+                    'password': password
+                };
+                let  url = "http://127.0.0.1:5000/api/v1/auth/signup";
+                fetch(url, {
+                    method: "post",
+                    body: JSON.stringify(data),
+                    headers: {
+                        "Accept": "application/json, text/plain, */*",
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(res => res.json())
+                .then(response => console.log("Success", JSON.stringify(response)))
+                .catch(error => console.error("Error:", error));
+            }
+        </script>
     </body>
 </html>
+

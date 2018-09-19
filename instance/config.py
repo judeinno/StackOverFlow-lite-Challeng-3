@@ -7,7 +7,7 @@ class Config(object):
     """
     DEBUG = False
     SECRET = os.getenv('SECRET')
-    DATABASE_URL = 'postgresql://postgres:ROCKcity1234@localhost:5432/StackOverFlow'
+    DATABASE_URL = 'postgres://urryenyuninfov:6309d68aed6e55794b324a9f3fcdd6ddaa7825e7fa918b8e301907c6534d7945@ec2-107-22-221-60.compute-1.amazonaws.com:5432/d6d48eqvpvt828'
 
 
 

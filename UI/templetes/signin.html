@@ -24,14 +24,14 @@
             <div class="login-form">
                 <fieldset>
                      <legend id="sign">Sign In</legend>
-                    <form action="User-home-page.html">
+                    <form id="signin" action="User-home-page.html">
                         <div>
                             <label>Email (required):</label>
-                            <input type="email" placeholder="*email address" required><br>
+                            <input type="username" id="username" placeholder="*username" required><br>
                         </div>
                         <div>
                             <label>Password (required):</label>
-                            <input type="password" placeholder="*password" required><br>
+                            <input type="password" id="password" placeholder="*password" required><br>
                         </div>
                         <input class="submit" type="submit" placeholder="Sign in" ><br><br>
                         <p> Dear user, If you don't have an account please Sign Up</p>
@@ -45,5 +45,37 @@
                 <p>2018 StackOverFlow-lite</p>
             </footer>
         </div>
+        <script>
+            /* event listeners */
+            document.getElementById("signin").addEventListener("submit", signinuser);
+            function signinuser(e) {
+                e.preventDefault();
+                let username = document.getElementById("username").value;
+                let password = document.getElementById("password").value;
+                console.log(username, password);
+                data = {
+                    'username': username,
+                    'password': password
+                };
+                let url = "http://127.0.0.1:5000/api/v1/auth/login";
+                fetch(url, {
+                    method: "POST",
+                    body: JSON.stringify(data),
+                    headers: {
+                        Accept: "application/json, text/plain, */*",
+                        "Content-Type": "application/json"
+                    }
+                })
+                    .then(res => res.json())
+                    .then(response => {
+                        console.log(response);
+                        token = response.access_token;
+                        console.log(token);
+                        localStorage.setItem('token', token)
+                    })
+                    .catch(error => console.error("Error:", error));
+            }
+        </script>
+
     </body>
 </html>

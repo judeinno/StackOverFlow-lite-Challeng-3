@@ -4,6 +4,7 @@ from app.views.apis import blue_print
 from app.views.user_api import blue_print_users
 from flask_jwt_extended import JWTManager
 import datetime
+from flask_cors import CORS
 
 
 def create_app():
@@ -14,6 +15,7 @@ def create_app():
             :param config:
         """
     app = Flask(__name__)
+    CORS(app)
     app.config.from_object(DevelopmentConfig)
     app.config['JWT_SECRET_KEY'] = 'SECRET'
     JWTManager(app)
