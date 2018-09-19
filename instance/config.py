@@ -7,7 +7,7 @@ class Config(object):
     """
     DEBUG = False
     SECRET = os.getenv('SECRET')
-    DATABASE_URL = 'postgres://urryenyuninfov:6309d68aed6e55794b324a9f3fcdd6ddaa7825e7fa918b8e301907c6534d7945@ec2-107-22-221-60.compute-1.amazonaws.com:5432/d6d48eqvpvt828'
+    DATABASE_URL = 'postgres://zpjvmcqxwjigzl:122757e0bba2514559a5bfb9ea75b478d7ceaba2bd50d8198947ee5d767768d5@ec2-54-235-178-189.compute-1.amazonaws.com:5432/darq5mdc6ve3rv'
 
 
 
