@@ -5,11 +5,7 @@ import re
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask import request, current_app as app
-from flasgger import swagger, swag_from
-
-app.config['SWAGGER'] = {
-    'TI'
-}
+`
 
 class RegisterUsers(Resource):
 
