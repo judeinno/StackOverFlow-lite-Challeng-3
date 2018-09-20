@@ -4,7 +4,7 @@ from app.views.apis import blue_print
 from app.views.user_api import blue_print_users
 from flask_jwt_extended import JWTManager
 import datetime
-
+from flasgger import swag_from, Swagger
 
 def create_app():
     """The function create app allows:
@@ -17,6 +17,10 @@ def create_app():
     app.config.from_object(DevelopmentConfig)
     app.config['JWT_SECRET_KEY'] = 'SECRET'
     JWTManager(app)
+    app.config['SWAGGER'] = {
+        'title': 'Stackoverflow-Lite',
+    }
+    Swagger( app )
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = datetime.timedelta( minutes=200 )
     app.register_blueprint(blue_print)
     app.register_blueprint(blue_print_users)
