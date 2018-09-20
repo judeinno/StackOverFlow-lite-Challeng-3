@@ -1,0 +1,32 @@
+tags:
+- "Users"
+summary: "Login a User"
+description: "The user can login by providing a their username and password"
+
+consumes:
+- "application/json"
+
+produces:
+- "application/json"
+
+parameters:
+- in: "body"
+  name: "body"
+  description: "User login credentials"
+  required: true
+  schema:
+    $ref: "#/definitions/User"
+responses:
+  405:
+    description: "Invalid input"
+
+definitions:
+  User:
+    type: "object"
+    properties:
+
+      username:
+        type: "string"
+
+      password:
+        type: "string"

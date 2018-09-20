@@ -1,0 +1,35 @@
+tags:
+- "Questions"
+summary: "Post question"
+description: "The user can post a question"
+
+consumes:
+- "application/json"
+
+produces:
+- "application/json"
+
+parameters:
+- in: "body"
+  name: "body"
+  description: "Question inputs"
+  required: true
+  schema:
+    $ref: "#/definitions/Question"
+responses:
+  406:
+    description: "Invalid, Please enter a valid question"
+
+  201:
+    description: "You have successfully asked a question"
+
+  409:
+    description: "Question already exists, please ask another question"
+
+definitions:
+  Question:
+    type: "object"
+    properties:
+
+      question:
+        type: "string"

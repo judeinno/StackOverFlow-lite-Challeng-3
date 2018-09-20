@@ -1,13 +1,16 @@
 from app.models.User_DBmanager import DBManager
-from flask_restplus import Resource
+from flask_restful import Resource
 from app.models.model import User
 import re
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from flask import request, current_app as app
+from flasgger import swag_from
+
 
 class RegisterUsers(Resource):
 
+    @swag_from( 'user_views.yml', methods=['POST'] )
     def post(self):
         """Register a user.
 
@@ -37,6 +40,8 @@ class RegisterUsers(Resource):
             return {'message': 'User successfully registered'}, 201
 
 class Login(Resource):
+
+    @swag_from('login.yml', methods=['POST'])
     def post(self):
         """Login a user.
 

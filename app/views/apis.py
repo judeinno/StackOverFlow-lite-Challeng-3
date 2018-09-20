@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restplus import Api
+from flask_restful import Api
 from app.views.questions_view import QuestionManager, SingleQuestionManager, DeleteQuestionManager
 from app.views.answer_view import AnswerManager, UpdateAnswer
 

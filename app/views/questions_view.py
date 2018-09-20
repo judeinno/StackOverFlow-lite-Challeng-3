@@ -1,13 +1,14 @@
 from app.models.User_DBmanager import DBManager
-from flask_restplus import Resource
+from flask_restful import Resource
 from flask import request, current_app as app
 from flask_jwt_extended import jwt_required, get_jwt_identity
-
+from flasgger import swag_from
 
 class QuestionManager(Resource):
 
 
     @jwt_required
+    @swag_from('questions.yml', methods=['POST'])
     def post(self):
         """Post a question.
 

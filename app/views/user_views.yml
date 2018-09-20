@@ -1,0 +1,36 @@
+tags:
+- "Users"
+summary: "Add a new user"
+description: "This is a POST request to add a new user"
+
+consumes:
+- "application/json"
+
+produces:
+- "application/json"
+
+parameters:
+- in: "body"
+  name: "body"
+  description: "user details to be added to the list"
+  required: true
+  schema:
+    $ref: "#/definitions/Subscriber"
+responses:
+
+  201:
+    description: "User successfully registered"
+
+definitions:
+  Subscriber:
+    type: "object"
+    properties:
+
+      email:
+        type: "string"
+
+      username:
+        type: "string"
+
+      password:
+        type: "string"
